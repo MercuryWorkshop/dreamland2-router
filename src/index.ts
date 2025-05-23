@@ -1,4 +1,5 @@
-import { scope, Component, ComponentInstance, DLElement } from "dreamland/core";
+//@ts-nocheck
+import type { Component, ComponentInstance, DLElement } from "dreamland/core";
 let globalrouter: Router | null = null;
 
 export class Router {
@@ -142,7 +143,7 @@ export class Router {
       if (typeof show == "function") show = show(location.pathname, {});
       this.el = show;
     } else {
-      this.el = <temporary />;
+      this.el = document.createElement("temporary")
     }
 
     root.append(this.el);
@@ -168,7 +169,7 @@ export const Route: Component<{
   show?: ShowTarget | ((path: string, params: Record<string, string>) => ShowTarget)
 }, {}, {}> = function() {
   // exists only to collect data
-  return <div />;
+  return document.createElement("div");
 }
 
 export const Redirect: Component<{
@@ -176,17 +177,5 @@ export const Redirect: Component<{
   to: string | ((path: string) => string);
 }> = function() {
 
-  return <div />;
-}
-
-export const Link: Component<{
-  href: string;
-  class?: string;
-}, {}> = function(cx) {
-  return <a href={this.href} class={use(this.class)}
-    on:click={e => {
-      e.preventDefault();
-      if (!globalrouter) throw new Error("No router exists");
-      globalrouter.navigate((cx.root as HTMLAnchorElement).href);
-    }}>{cx.children}</a>
+  return document.createElement("div");
 }

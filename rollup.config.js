@@ -8,24 +8,26 @@ const commonPlugins = () => [
 const configs = [
   // import
   {
-    input: 'src/index.tsx',
+    external: ['dreamland/core'],
+    input: 'src/index.ts',
     output: {
       file: `dist/index.js`,
       format: 'esm',
       sourcemap: true,
-      exports: 'named',
+      exports: 'named'
     },
     plugins: commonPlugins(),
   },
   // require
   {
-    input: 'src/index.tsx',
+    external: ['dreamland/core'],
+    input: 'src/index.ts',
     output: {
       file: `dist/router.cjs`,
       format: 'umd',
       name: 'router',
       sourcemap: true,
-      exports: 'auto',
+      exports: 'auto'
     },
     plugins: commonPlugins(),
   },
